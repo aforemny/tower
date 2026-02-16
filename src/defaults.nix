@@ -6,10 +6,16 @@
 }:
 {
   config = {
-    nixosModules.defaults = lib.mkDefault {
-      boot.initrd.systemd.enable = true;
-      boot.loader.systemd-boot.enable = true;
-      networking.networkmanager.enable = true;
+    nixosModules.defaults = {
+      boot = {
+        initrd.systemd.enable = lib.mkDefault true;
+        loader.systemd-boot.enable = lib.mkDefault true;
+      };
+      networking.networkmanager.enable = lib.mkDefault true;
+      services.openssh = {
+        enable = lib.mkDefault true;
+        openFirewall = lib.mkDefault true;
+      };
     };
   };
   options.nixosConfigurations = lib.mkOption {
